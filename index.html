@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emmanuel Deniel Sanchez | My College Diary</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,700;1,700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #fcfaf8;
+            --header-bg: #f3e9e1;
+            --primary-brown: #a68b7c;
+            --accent-brown: #4a3728;
+            --text-main: #3e2723;
+            --border-color: #e0d4cc;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: linear-gradient(30deg, #f0e7df 12%, transparent 12.5%, transparent 87%, #f0e7df 87.5%, #f0e7df),
+                              linear-gradient(150deg, #f0e7df 12%, transparent 12.5%, transparent 87%, #f0e7df 87.5%, #f0e7df),
+                              linear-gradient(60deg, #f0e7df 25%, transparent 25.5%, transparent 75%, #f0e7df 75%, #f0e7df);
+            background-size: 80px 140px;
+            background-attachment: fixed;
+        }
+
+        header {
+            background-color: var(--header-bg); 
+            padding: 20px 8%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: fixed;
+            width: 100%; top: 0; z-index: 1000;
+            box-sizing: border-box;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header-logo { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 2.2em; 
+            color: var(--accent-brown); 
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        nav { display: flex; justify-content: center; width: 100%; }
+        
+        nav a { 
+            margin: 0 15px; 
+            text-decoration: none; 
+            color: var(--text-main); 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            text-transform: uppercase; 
+            font-size: 0.7em; 
+            letter-spacing: 2px; 
+        }
+        nav a:hover, nav a.active { color: var(--primary-brown); border-bottom: 2px solid var(--primary-brown); }
+
+        section, .container {
+            display: none; 
+            padding: 180px 8% 80px;
+            min-height: 100vh;
+            animation: fadeIn 1s ease;
+            box-sizing: border-box;
+        }
+
+        .active-section { display: flex !important; flex-direction: column; align-items: center; justify-content: center; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .home-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .hero-text { text-align: left; }
+        .hero-text span { font-weight: 600; letter-spacing: 4px; color: var(--primary-brown); font-size: 0.9em; }
+        .hero-text h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 5em; 
+            color: var(--accent-brown); 
+            margin: 10px 0; 
+            line-height: 1.1;
+        }
+        .hero-text p { font-size: 1.1em; line-height: 1.8; color: #6d4c41; margin-bottom: 40px; font-weight: 300; }
+
+        .hero-image img { 
+            width: 100%; border-radius: 2px; 
+            border: 10px solid white;
+            box-shadow: 20px 20px 0px var(--header-bg); 
+            transition: 0.5s;
+        }
+
+        .btn-cta {
+            background: var(--accent-brown); color: white; padding: 18px 45px;
+            text-decoration: none; font-weight: 600; font-size: 0.8em; letter-spacing: 3px;
+            text-transform: uppercase; border-radius: 0; transition: 0.4s; border: 1px solid var(--accent-brown);
+        }
+        .btn-cta:hover { background: transparent; color: var(--accent-brown); }
+
+        .content-card { background: var(--card-bg); padding: 50px; border: 1px solid var(--border-color); width: 100%; max-width: 1000px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; text-align: left; }
+        
+        /* DIARY STYLES */
+        .diary-item { border-bottom: 1px solid var(--border-color); padding: 35px 0; text-align: left; width: 100%; }
+        .diary-item:last-child { border-bottom: none; }
+        .diary-date { font-size: 0.8em; color: var(--primary-brown); letter-spacing: 1px; margin-bottom: 5px; font-weight: 600; }
+
+        /* GALLERY STYLES */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .gallery-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            text-align: left;
+        }
+
+        .gallery-card:hover { transform: translateY(-5px); }
+
+        .img-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #f3e9e1;
+            margin-bottom: 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .img-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+        }
+
+        .gallery-card:hover .img-placeholder img { transform: scale(1.1); }
+
+        footer { text-align: center; padding: 60px; background: var(--header-bg); font-size: 0.8em; letter-spacing: 1px; color: var(--primary-brown); border-top: 1px solid var(--border-color); }
+
+        @media (max-width: 968px) {
+            .home-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text { order: 2; }
+            .hero-text h1 { font-size: 3.5em; }
+            .about-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-logo">My College Diary</div>
+        <nav>
+            <a onclick="showSection('home')" id="link-home" class="active">Home</a>
+            <a onclick="showSection('about')" id="link-about">Profile</a>
+            <a onclick="showSection('diary')" id="link-diary">Journal</a>
+            <a onclick="showSection('gallery')" id="link-gallery">Works</a>
+            <a onclick="showSection('contact')" id="link-contact">Connect</a>
+        </nav>
+    </header>
+
+    <!-- HOME SECTION -->
+    <div id="home" class="container active-section">
+        <div class="home-content">
+            <div class="hero-text">
+                <span>BSIT STUDENT • MUZON, SJDM</span>
+                <h1>Emmanuel<br><i>Deniel</i> Sanchez</h1>
+                <p>I bridge the gap between hardware and software through innovative IoT solutions and elegant web experiences.</p>
+                <a href="mailto:emmanueldenielsancez@gmail.com" class="btn-cta">Get In Touch</a>
+            </div>
+            <div class="hero-image">
+                <img src="rv.png" alt="Emmanuel Deniel Sanchez">
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE SECTION -->
+    <section id="about">
+        <h2 style="font-family: 'Playfair Display'; font-size: 3em; margin-bottom: 40px;">Profile</h2>
+        <div class="content-card">
+            <div class="about-grid">
+                <div style="border-right: 1px solid var(--border-color); padding-right: 30px;">
+                    <h3 style="letter-spacing: 2px; font-size: 0.8em; color: var(--primary-brown);">IDENTITY</h3>
+                    <p><b>Name:</b> Emmanuel Deniel Sanchez</p>
+                    <p><b>Phone:</b> 09155213336</p>
+                    <p><b>Address:</b> Muzon, SJDM, Bulacan</p>
+                    <p><b>School:</b> Colegio de Sta. Teresa de Avila</p>
+                </div>
+                <div>
+                    <h3 style="letter-spacing: 2px; font-size: 0.8em; color: var(--primary-brown);">EXPERTISE</h3>
+                    <p>I specialize in <b>Embedded Systems</b> (Arduino/ESP32) and <b>Full-Stack Development</b>. Currently building <i>AlertFi</i>, an IoT fire alarm system.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JOURNAL SECTION (10 ENTRIES) -->
+    <section id="diary">
+        <h2 style="font-family: 'Playfair Display'; font-size: 3em; margin-bottom: 40px;">Journal</h2>
+        <div class="content-card">
+            
+            <div class="diary-item">
+                <div class="diary-date">MAY 05, 2026</div>
+                <h3>Final Testing Success</h3>
+                <p>Matapos ang ilang linggong puyat, sa wakas ay stable na ang AlertFi! Sinubukan ko ang SMS trigger function sa lab kanina at wala nang latency. Ready na para sa final presentation.</p>
+            </div>
+
+            <div class="diary-item">
+                <div class="diary-date">APRIL 28, 2026</div>
+                <h3>The Networking Nightmare</h3>
+                <p>Nag-overnight kami para sa networking project. Medyo nakakalito ang subnetting pero nung nag-ping na lahat ng devices, parang nanalo kami sa lotto. Ang saya maging IT student sa mga ganitong moment.</p>
+            </div>
+
+            <div class="diary-item">
+                <div class="diary-date">APRIL 14, 2026</div>
+                <h3>Arduino & Burned Sensors</h3>
+                <p>Muntik ko nang masunog ang huling MQ-2 gas sensor ko dahil sa maling polarity. Lesson learned: laging i-double check ang circuit diagram bago isaksak ang power source. Muntik na ang AlertFi!</p>
+            </div>
+
+            <div class="diary-item">
+                <div class="diary-date">MARCH 30, 2026</div>
+                <h3>SQL Query Optimization</h3>
+                <p>Buong araw akong nakatitig sa database structure ng library system namin. Masarap sa pakiramdam nung napa-ikli ko yung query code at bumilis ang loading time ng student records.</p>
+            </div>
+
+            <div class="diary-item">
+                <div class="diary-date">MARCH 15, 2026</div>
+                <h3>Midterm Grind in Muzon</h3>
+                <p>Mainit sa Bulacan ngayon kaya sa gabi lang ako nakakapag-concentrate mag-code. Sabay-sabay ang projects pero kailangan lumaban. 2nd sem feels like a boss fight.</p>
+            </div>
+
+            <div class="diary-item">
+                <div class="diary-date">MARCH 02, 2026</div>
+                <h3>Gym as Stress Relief</h3>
+                <p>Pagkatapos ng 5 hours na coding, nag-buhat muna ako. Mas nakakapag-isip ako ng logic fixes habang nag-re-rest between sets. Discipline in gym = discipline in code.</p>
+            </div>
+
+            <div class="diary-item">
+                <div class="diary-date">FEBRUARY 18, 2026</div>
+                <h3>Designing the Aethelgard Identity</h3>
+                <p>Ginamit ko ang Analogous Color Harmony para sa startup logo project namin. Nakaka-relax din palang gumawa ng creative work kahit puro logic ang inaaral sa IT.</p>
+            </div>
+
+            <div class="diary-item">
+                <div class="diary-date">FEBRUARY 05, 2026</div>
+                <h3>Visual Basic Breakthrough</h3>
+                <p>Nag-aaral ng advanced CRUD applications. Mahirap yung error handling sa umpisa pero nung naintindihan ko na ang flow, naging mas madali na ang lahat.</p>
+            </div>
+
+            <div class="diary-item">
+                <div class="diary-date">JANUARY 22, 2026</div>
+                <h3>ESP8266 Wi-Fi Module Setup</h3>
+                <p>First time kong mapakonekta ang Arduino sa internet via ESP8266. Ito ang magiging pundasyon ng AlertFi. Ang daming possibilities ng IoT!</p>
+            </div>
+
+            <div class="diary-item">
+                <div class="diary-date">JANUARY 12, 2026</div>
+                <h3>Fresh Start: 2nd Semester</h3>
+                <p>Back at Colegio de Sta. Teresa de Avila! New subjects, new challenges. Target ko ngayong sem na ma-improve ang front-end skills ko habang tinatapos ang IoT projects.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION (ORIGINAL 10 ITEMS) -->
+    <section id="gallery">
+        <h2 style="font-family: 'Playfair Display'; font-size: 3em; margin-bottom: 40px;">Gallery</h2>
+        <div class="gallery-grid">
+            
+            <div class="gallery-card">
+                <div class="img-placeholder"><img src="a.jpg" alt="Work 10"></div>
+                <span>Entry #10</span>
+                <h4>AlertFi Final Testing</h4>
+                <p>Sinubukan ang SMS trigger sa AlertFi. Success ang notification!</p>
+            </div>
+
+            <div class="gallery-card">
+                <div class="img-placeholder"><img src="b.jpg" alt="Work 09"></div>
+                <span>Entry #09</span>
+                <h4>AlertFi Final Testing</h4>
+                <p>Ready na ipakita sa lahat ang pinaghirapan.</p>
+            </div>
+
+            <div class="gallery-card">
+                <div class="img-placeholder"><img src="d.jpg" alt="Work 08"></div>
+                <span>Entry #08</span>
+                <h4>7-Segment Multiplexing</h4>
+                <p>Mahirap ang wiring pero satisfying nung gumana ang timer.</p>
+            </div>
+
+            <div class="gallery-card">
+                <div class="img-placeholder"><img src="e.jpg" alt="Work 07"></div>
+                <span>Entry #07</span>
+                <h4>Electronics Brain Storming</h4>
+                <p>Sobrang nalito kami.</p>
+            </div>
+
+            <div class="gallery-card">
+                <div class="img-placeholder"><img src="y.jpg" alt="Work 06"></div>
+                <span>Entry #06</span>
+                <h4>Year End</h4>
+                <p>Nanalo ako ng 1k, bagong pasok pa lang.</p>
+            </div>
+
+            <div class="gallery-card">
+                <div class="img-placeholder"><img src="9.jpg" alt="Work 05"></div>
+                <span>Entry #05</span>
+                <h4>Volleyball Warmup</h4>
+                <p>Naghahanda sa pag subok sa p.e.</p>
+            </div>
+
+            <div class="gallery-card">
+                <div class="img-placeholder"><img src="g.jpg" alt="Work 04"></div>
+                <span>Entry #04</span>
+                <h4>Arduino RFID</h4>
+                <p>Puyatan sa paghahanap ng error sa Visual Basic logic.</p>
+            </div>
+
+            <div class="gallery-card">
+                <div class="img-placeholder"><img src="7.jpg" alt="Work 03"></div>
+                <span>Entry #03</span>
+                <h4>Debugging Codes</h4>
+                <p>Gumawa ng basic CRUD application para sa school project.</p>
+            </div>
+
+            <div class="gallery-card">
+                <div class="img-placeholder"><img src="6.jpg" alt="Work 02"></div>
+                <span>Entry #02</span>
+                <h4>Searching Books</Search></h4>
+                <p>Naghanap kami ng karagdagan idea para sa library system.</p>
+            </div>
+
+            <div class="gallery-card">
+                <div class="img-placeholder"><img src="5.jpg" alt="Work 01"></div>
+                <span>Entry #01</span>
+                <h4>Library System</h4>
+                <p>Nag survey para sa library system.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <h2 style="font-family: 'Playfair Display'; font-size: 3em;">Connect</h2>
+        <div class="content-card" style="text-align: center;">
+            <p>For collaborations and inquiries:</p>
+            <a href="mailto:emmanueldenielsancez@gmail.com" style="font-size: 1.5em; color: var(--accent-brown); text-decoration: none; font-weight: 700; border-bottom: 2px solid var(--primary-brown);">emmanueldenielsancez@gmail.com</a>
+            <p style="margin-top: 30px; font-weight: 600;">09155213336</p>
+        </div>
+    </section>
+
+    <footer>&copy; 2026 EMMANUEL DENIEL SANCHEZ • MUZON, BULACAN</footer>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('section, .container').forEach(sec => sec.classList.remove('active-section'));
+            document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active-section');
+            document.getElementById('link-' + sectionId).classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    </script>
+</body>
+</html>
